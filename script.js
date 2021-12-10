@@ -32,6 +32,7 @@ const months = [
 
 toggle.addEventListener('click', (e) => {
   const html = document.querySelector('html')
+
   if (html.classList.contains('dark')) {
     html.classList.remove('dark')
     e.target.innerHTML = 'Dark mode'
@@ -43,22 +44,23 @@ toggle.addEventListener('click', (e) => {
 
 function setTime() {
   const time = new Date()
-  const month = time.getMonth()
-  const day = time.getDay()
-  const date = time.getDate()
-  const hours = time.getHours()
-  const hoursForClock = hours >= 13 ? hours % 12 : hours
-  const minutes = time.getMinutes()
   const seconds = time.getSeconds()
+  const minutes = time.getMinutes()
+  const hours = time.getHours()
+  const day = time.getDay()
+  const month = time.getMonth()
+  const date = time.getDate()
+  const hoursForClock = hours >= 13 ? hours % 12 : hours
   const ampm = hours >= 12 ? 'PM' : 'AM'
 
   hourEl.style.transform = `translate(-50%, -100%) rotate(${scale(
-    hoursForClock,
+    hours,
     0,
     12,
     0,
     360
   )}deg)`
+
   minuteEl.style.transform = `translate(-50%, -100%) rotate(${scale(
     minutes,
     0,
@@ -66,6 +68,7 @@ function setTime() {
     0,
     360
   )}deg)`
+
   secondEl.style.transform = `translate(-50%, -100%) rotate(${scale(
     seconds,
     0,
@@ -74,11 +77,11 @@ function setTime() {
     360
   )}deg)`
 
+  dateEl.innerHTML = `${days[day]} ${months[month]} <span class="circle">${date}</span>`
+
   timeEl.innerHTML = `${hoursForClock}:${
     minutes < 10 ? `0${minutes}` : minutes
   } ${ampm}`
-
-  dateEl.innerHTML = `${days[day]}, ${months[month]} <span class='circle'>${date}</span>`
 }
 
 const scale = (num, in_min, in_max, out_min, out_max) => {
@@ -87,4 +90,4 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 
 setTime()
 
-setInterval(setTime, 1000)
+setInterval(setTime, 1000)a
